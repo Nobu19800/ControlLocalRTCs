@@ -1,0 +1,54 @@
+# ControlEdison CMake config file
+#
+# This file sets the following variables:
+# ControlEdison_FOUND - Always TRUE.
+# ControlEdison_INCLUDE_DIRS - Directories containing the ControlEdison include files.
+# ControlEdison_IDL_DIRS - Directories containing the ControlEdison IDL files.
+# ControlEdison_LIBRARIES - Libraries needed to use ControlEdison.
+# ControlEdison_DEFINITIONS - Compiler flags for ControlEdison.
+# ControlEdison_VERSION - The version of ControlEdison found.
+# ControlEdison_VERSION_MAJOR - The major version of ControlEdison found.
+# ControlEdison_VERSION_MINOR - The minor version of ControlEdison found.
+# ControlEdison_VERSION_REVISION - The revision version of ControlEdison found.
+# ControlEdison_VERSION_CANDIDATE - The candidate version of ControlEdison found.
+
+message(STATUS "Found ControlEdison-@PROJECT_VERSION@")
+set(ControlEdison_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(ControlEdison_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(ControlEdison_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(ControlEdison_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(ControlEdison_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(ControlEdison_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(ControlEdison_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(ControlEdison_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(ControlEdison_VERSION @PROJECT_VERSION@)
+set(ControlEdison_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(ControlEdison_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(ControlEdison_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(ControlEdison_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
